@@ -9,6 +9,5 @@ public class StringBuilderLesson {
 		}
 		String s = sb.toString();
 		System.out.println(s);
-		System.out.println(s);
 	}
 }
