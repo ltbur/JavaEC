@@ -1,5 +1,10 @@
 package day2;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.Scanner;
@@ -48,6 +53,28 @@ public class HighScoreGame {
 
 		}
 	}
+	public static HighScore readFile(String file) {
+		    HighScore hs=null;
+		    BufferedReader br=null;
+		    try {
+		      FileInputStream fis=new FileInputStream(file);
+		      InputStreamReader isr=new InputStreamReader(fis,"UTF-8");
+		      br=new BufferedReader(isr);
+		      String line=br.readLine();
+		      if(line!=null && !line.equals("")) {
+		        String[] data=line.split(",");
+		        hs=new HighScore(Integer.parseInt(data[0]),data[1]);
+		      }
+		    } catch (FileNotFoundException e) {
+		          e.printStackTrace();
+		    } catch (UnsupportedEncodingException e) {
+		      e.printStackTrace();
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }
+		    return hs;
+
+		  }
 
 
 }
