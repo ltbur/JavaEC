@@ -5,12 +5,20 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class DiceCompApp {
-
+	static final int PER_PLAY_COST = 300;
+	static final int TRIAL_COUNT = 500;
+	static final Map<Integer,Integer> map = new TreeMap<>();
+	static final Set<Integer> set = new HashSet<>();
+	static final Random rand = new Random();
+	static final StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) {
-		Map<Integer,Integer>map = new TreeMap<>();
 		int maxThrowCount = 0;
-		for(int i = 0; i < 500; i++) {
+		int totalCost = 0;
+		int modeCount = 0;
+		int mode = 0;
+		for(int i = 0; i < TRIAL_COUNT; i++) {
 			int diceThrowCount = diceCompCount();
+			totalCost += diceThrowCount * PER_PLAY_COST;
 			if(diceThrowCount > maxThrowCount) {
 				maxThrowCount = diceThrowCount;
 
@@ -23,13 +31,17 @@ public class DiceCompApp {
 				count = 1;
 			}
 			map.put(diceThrowCount, count);
+			if(count > modeCount) {
+				modeCount = count;
+				mode = diceThrowCount;
+			}
 		}
 		System.out.println("***************************結果*****************************");
 		for(int i = 1; i <= maxThrowCount; i++) {
-			System.out.printf("%d(%d):%s%n",i,300*i,map.containsKey(i) ? createStar(map.get(i)):"");
+			System.out.printf("%d(%d):%s%n",i,PER_PLAY_COST*i,map.containsKey(i) ? createStar(map.get(i)):"");
 		}
-		System.out.printf("コンプ平均値:%d円%n",calcAvg(map));
-		System.out.printf("モード(最頻値):%d回(%d円)%n",calcMode(map),calcMode(map)*300);
+		System.out.printf("コンプ平均値:%d円%n",totalCost / TRIAL_COUNT);
+		System.out.printf("モード(最頻値):%d回(%d円)%n",mode,mode * PER_PLAY_COST);
 	}
 	static int diceCompCount() {
 		int count = 0;
