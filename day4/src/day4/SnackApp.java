@@ -25,6 +25,14 @@ public class SnackApp {
 				}
 			}
 		}
+		System.out.println("3つ");
+		for(int i = 0; i < snacks.length; i++) {
+			for(int j = i + 1; j < snacks.length + 1; j++) {
+				if(snacks[i].price + snacks[j - 1].price <= 200) {
+					System.out.printf("[%s(%d),%s(%d)]%n",snacks[i].name,snacks[i].price,snacks[j-1].name,snacks[j-1].price);
+
+
+
 	}
 
 }
